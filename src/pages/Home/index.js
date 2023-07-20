@@ -1,31 +1,33 @@
-import React, { useState } from 'react'
-import './style.css'
-import { Card } from '../../components/Card'
+import React, { useState } from "react";
+import "./style.css";
+import { Card } from "../../components/Card";
 
 export function Home() {
+  const [name, setName] = useState("");
+  const [estudantes, setEstudantes] = useState([]);
 
-    const [name, setName] = useState('Lucas')
-    
-    return (
-
-      <div className='container'>
-        <h1>{name}</h1>
-        <input 
-        type="text" 
+  return (
+    <div className="container">
+      <h1>Lista de Presença</h1>
+      <input
+        type="text"
         placeholder="Digite seu nome"
-        onChange={function(event) {setName(event.target.value)}}
-        />
-        <button>Adicionar</button>
-        <Card name='Dora' time='10:12:15'/>
-        <Card name='Tiago' time='09:06:05'/>
-        <Card name='Osmar' time='23:14:17'/>
-        <Card name='Lucas' time='16:11:16'/>
-      </div>
-
-    
-      
-    );
+        value={name}
+        onChange={function (event) {
+          setName(event.target.value);
+        }}
+      />
+      <button
+        onClick={function (e) {
+          setEstudantes([...estudantes,{name: name, time: new Date().toTimeString().substring(0,8)}]);
+          setName("");
+        }}
+      >
+        Adicionar
+      </button>
+      {estudantes.map(function (value) {
+        return <Card name={value.name} time={value.time} />;
+      })}
+    </div>
+  );
 }
-
-
-  
