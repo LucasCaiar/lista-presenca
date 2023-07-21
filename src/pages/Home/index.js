@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 import { Card } from "../../components/Card";
+import foto from "./images/img1.jpeg"
 
 export function Home() {
   const [name, setName] = useState("");
@@ -8,7 +9,14 @@ export function Home() {
 
   return (
     <div className="container">
-      <h1>Lista de Presença</h1>
+      <header>
+        <h1>Lista de Presença</h1>
+        <div>
+          <strong>Lucas</strong>
+          <img src={foto} alt="foto de perfil" />
+        </div>
+      </header>
+
       <input
         type="text"
         placeholder="Digite seu nome"
@@ -19,14 +27,17 @@ export function Home() {
       />
       <button
         onClick={function (e) {
-          setEstudantes([...estudantes,{name: name, time: new Date().toTimeString().substring(0,8)}]);
+          setEstudantes([
+            ...estudantes,
+            { name: name, time: new Date().toTimeString().substring(0, 8) },
+          ]);
           setName("");
         }}
       >
         Adicionar
       </button>
       {estudantes.map(function (value) {
-        return <Card name={value.name} time={value.time} />;
+        return <Card key={value.time} name={value.name} time={value.time} />;
       })}
     </div>
   );
